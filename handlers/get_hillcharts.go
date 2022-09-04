@@ -10,7 +10,10 @@ import (
 
 func GetHillcharts(c *gin.Context) {
 	var hillcharts []models.Hillchart
-	models.DB.Find(&hillcharts)
+	if err := models.DB.Find(&hillcharts).Error; err != nil {
+		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		return
+	}
 
 	c.IndentedJSON(http.StatusOK, gin.H{"data": hillcharts})
 }

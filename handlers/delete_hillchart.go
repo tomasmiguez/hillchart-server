@@ -17,7 +17,10 @@ func DeleteHillchart(c *gin.Context) {
 		return
 	}
 
-	models.DB.Delete(&models.Hillchart{}, id)
+	if err := models.DB.Delete(&models.Hillchart{}, id).Error; err != nil {
+		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		return
+	}
 
 	c.IndentedJSON(http.StatusOK, gin.H{"data": true})
 }
