@@ -9,20 +9,19 @@ import (
 )
 
 type CreateHillchartInput struct {
-    Name string `json:"name" binding:"required"`
+	Name string `json:"name" binding:"required"`
 }
 
 func CreateHillchart(c *gin.Context) {
-    var input CreateHillchartInput
-    err := c.ShouldBindJSON(&input)
-    if err != nil {
-        c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
-        return
-    }
+	var input CreateHillchartInput
+	err := c.ShouldBindJSON(&input)
+	if err != nil {
+		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		return
+	}
 
-    hillchart := models.Hillchart{Name: input.Name}
-    models.DB.Create(&hillchart)
+	hillchart := models.Hillchart{Name: input.Name}
+	models.DB.Create(&hillchart)
 
-    c.IndentedJSON(http.StatusOK, gin.H{"data": hillchart})
+	c.IndentedJSON(http.StatusOK, gin.H{"data": hillchart})
 }
-

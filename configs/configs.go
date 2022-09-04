@@ -1,8 +1,8 @@
 package configs
 
 import (
-    "log"
 	"io/ioutil"
+	"log"
 
 	"gopkg.in/yaml.v3"
 )

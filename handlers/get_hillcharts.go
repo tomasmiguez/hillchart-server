@@ -9,9 +9,8 @@ import (
 )
 
 func GetHillcharts(c *gin.Context) {
-    var hillcharts []models.Hillchart
-    models.DB.Find(&hillcharts)
+	var hillcharts []models.Hillchart
+	models.DB.Find(&hillcharts)
 
-    c.IndentedJSON(http.StatusOK, gin.H{"data": hillcharts})
+	c.IndentedJSON(http.StatusOK, gin.H{"data": hillcharts})
 }
-

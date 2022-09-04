@@ -18,7 +18,7 @@ func getDsn() string {
 }
 
 func init() {
-    var err error
+	var err error
 	DB, err = gorm.Open(postgres.Open(getDsn()), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)

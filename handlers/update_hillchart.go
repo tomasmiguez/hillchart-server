@@ -9,26 +9,25 @@ import (
 )
 
 type UpdateHillchartInput struct {
-    Name string `json:"name"`
+	Name string `json:"name"`
 }
 
 func UpdateHillchart(c *gin.Context) {
-    id := c.Param("id")
+	id := c.Param("id")
 
-    var hillchart models.Hillchart
-    if err := models.DB.Take(&hillchart, id).Error; err != nil {
-        c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
-        return
-    }
+	var hillchart models.Hillchart
+	if err := models.DB.Take(&hillchart, id).Error; err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
+		return
+	}
 
-    var input UpdateHillchartInput
-    if err := c.ShouldBindJSON(&input); err != nil {
-        c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
-        return
-    }
+	var input UpdateHillchartInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		return
+	}
 
-    models.DB.Model(&hillchart).Updates(models.Hillchart{Name: input.Name})
+	models.DB.Model(&hillchart).Updates(models.Hillchart{Name: input.Name})
 
-    c.IndentedJSON(http.StatusOK, gin.H{"data": hillchart})
+	c.IndentedJSON(http.StatusOK, gin.H{"data": hillchart})
 }
-
