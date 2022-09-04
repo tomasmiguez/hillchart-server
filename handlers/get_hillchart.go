@@ -12,7 +12,10 @@ func GetHillchart(c *gin.Context) {
   	id := c.Param("id")
 
     hillchart := models.Hillchart{}
-    models.DB.Take(&hillchart, id)
+    if err := models.DB.Take(&hillchart, id).Error; err != nil {
+        c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
+        return
+    }
 
     c.IndentedJSON(http.StatusOK, gin.H{"data": hillchart})
 }
