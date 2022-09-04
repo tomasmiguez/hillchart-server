@@ -8,6 +8,7 @@ import (
 
 func main() {
 	router := gin.Default()
+  router.POST("/hillcharts", handlers.CreateHillchart)
   router.GET("/hillcharts", handlers.GetHillcharts)
 	router.GET("/hillcharts/:id", handlers.GetHillchart)
 
