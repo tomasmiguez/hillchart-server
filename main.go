@@ -12,6 +12,7 @@ func main() {
   router.GET("/hillcharts", handlers.GetHillcharts)
 	router.GET("/hillcharts/:id", handlers.GetHillchart)
   router.PATCH("/hillcharts/:id", handlers.UpdateHillchart)
+  router.DELETE("hillcharts/:id", handlers.DeleteHillchart)
 
 	router.Run("localhost:8080")
 }
