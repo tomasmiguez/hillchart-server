@@ -17,15 +17,12 @@ type DbConfig struct {
 
 func Db() DbConfig {
 	configFile, err := ioutil.ReadFile("configs/database.yaml")
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	dbConfig := DbConfig{}
-
 	err = yaml.Unmarshal(configFile, &dbConfig)
-
 	if err != nil {
 		log.Fatal(err)
 	}
