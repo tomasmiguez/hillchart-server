@@ -21,7 +21,7 @@ func CreateFrame(c *gin.Context) {
 
 	frame := models.Frame{HillchartID: input.HillchartID}
 	if err := models.DB.Create(&frame).Error; err != nil {
-		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}
 

@@ -11,7 +11,7 @@ import (
 func GetHillcharts(c *gin.Context) {
 	var hillcharts []models.Hillchart
 	if err := models.DB.Preload("Frames").Find(&hillcharts).Error; err != nil {
-		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{err.Error()}})
 		return
 	}
 

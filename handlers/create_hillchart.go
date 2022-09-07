@@ -22,7 +22,7 @@ func CreateHillchart(c *gin.Context) {
 
 	hillchart := models.Hillchart{Name: input.Name, Frames: []models.Frame{}}
 	if err := models.DB.Create(&hillchart).Error; err != nil {
-		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}
 

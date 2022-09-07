@@ -28,7 +28,7 @@ func UpdateHillchart(c *gin.Context) {
 	}
 
 	if err := models.DB.Model(&hillchart).Updates(models.Hillchart{Name: input.Name}).Error; err != nil {
-		c.IndentedJSON(http.StatusUnprocessableEntity, gin.H{"errors": []string{err.Error()}})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}
 
