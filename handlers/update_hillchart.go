@@ -16,7 +16,7 @@ func UpdateHillchart(c *gin.Context) {
 	id := c.Param("id")
 
 	var hillchart models.Hillchart
-	if err := models.DB.Preload("Statuses").Take(&hillchart, id).Error; err != nil {
+	if err := models.DB.Preload("Frames").Take(&hillchart, id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}

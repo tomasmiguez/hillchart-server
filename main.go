@@ -15,7 +15,7 @@ func main() {
 	router.PATCH("/hillcharts/:id", handlers.UpdateHillchart)
 	router.DELETE("hillcharts/:id", handlers.DeleteHillchart)
 
-	router.POST("/statuses", handlers.CreateStatus)
+  router.POST("/frames", handlers.CreateFrame)
 
 	router.Run("localhost:8080")
 }
