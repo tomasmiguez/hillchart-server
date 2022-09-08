@@ -10,7 +10,7 @@ import (
 
 func GetFrames(c *gin.Context) {
 	var frames []models.Frame
-	if err := models.DB.Find(&frames).Error; err != nil {
+	if err := models.DB.Preload("Scopes").Find(&frames).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{err.Error()}})
 		return
 	}
