@@ -4,10 +4,17 @@ import (
 	"github.com/tomasmiguez/hillchart-server/handlers"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 )
 
 func main() {
 	router := gin.Default()
+
+	router.Use(cors.New(cors.Config{
+		// AllowOrigins:     []string{"*"},
+		AllowAllOrigins:  true,
+		AllowMethods:     []string{"GET", "POST", "PATCH", "DELETE"},
+	}))
 
 	router.POST("/hillcharts", handlers.CreateHillchart)
 	router.GET("/hillcharts", handlers.GetHillcharts)
