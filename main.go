@@ -27,5 +27,5 @@ func main() {
 	router.PATCH("/scopes/:id", handlers.UpdateScope)
 	router.DELETE("/scopes/:id", handlers.DeleteScope)
 
-	router.Run("localhost:8080")
+	router.Run("localhost:3000")
 }

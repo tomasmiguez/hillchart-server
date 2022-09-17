@@ -19,7 +19,7 @@ func CreateFrame(c *gin.Context) {
 		return
 	}
 
-	frame := models.Frame{HillchartID: input.HillchartID}
+	frame := models.Frame{HillchartID: input.HillchartID, Scopes: []models.Scope{}}
 	if err := models.DB.Create(&frame).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
