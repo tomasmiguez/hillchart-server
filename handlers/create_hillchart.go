@@ -20,7 +20,7 @@ func CreateHillchart(c *gin.Context) {
 		return
 	}
 
-	hillchart := models.Hillchart{Name: input.Name, Frames: []models.Frame{}}
+	hillchart := models.Hillchart{Name: input.Name, Scopes: []models.Scope{}, Frames: []models.Frame{}}
 	if err := models.DB.Create(&hillchart).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return

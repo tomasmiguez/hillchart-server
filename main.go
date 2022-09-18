@@ -34,5 +34,11 @@ func main() {
 	router.PATCH("/scopes/:id", handlers.UpdateScope)
 	router.DELETE("/scopes/:id", handlers.DeleteScope)
 
+	router.POST("/frame-scopes", handlers.CreateFrameScope)
+	router.GET("/frame-scopes", handlers.GetFrameScopes)
+	router.GET("/frame-scopes/:id", handlers.GetFrameScope)
+	router.PATCH("/frame-scopes/:id", handlers.UpdateFrameScope)
+	router.DELETE("/frame-scopes/:id", handlers.DeleteFrameScope)
+
 	router.Run("localhost:3000")
 }

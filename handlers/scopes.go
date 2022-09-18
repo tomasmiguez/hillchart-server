@@ -9,9 +9,8 @@ import (
 )
 
 type CreateScopeInput struct {
-	Title string `json:"title" binding:"required"`
-	Position float32 `json:"position"`
-	FrameID uint `json:"frame_id" binding:"required"`
+	Color string `json:"color"`
+	HillchartID uint `json:"hillchart_id" binding:"required"`
 }
 
 func CreateScope(c *gin.Context) {
@@ -21,7 +20,7 @@ func CreateScope(c *gin.Context) {
 		return
 	}
 
-	scope := models.Scope{Title: input.Title, Position: input.Position, FrameID: input.FrameID}
+	scope := models.Scope{Color: input.Color, HillchartID: input.HillchartID}
 	if err := models.DB.Create(&scope).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
@@ -53,8 +52,7 @@ func GetScope(c *gin.Context) {
 }
 
 type UpdateScopeInput struct {
-	Title string `json:"title"`
-	Position float32 `json:"position"`
+	Color string `json:"color"`
 }
 
 func UpdateScope(c *gin.Context) {
@@ -72,7 +70,7 @@ func UpdateScope(c *gin.Context) {
 		return
 	}
 
-	if err := models.DB.Model(&scope).Updates(models.Scope{Title: input.Title, Position: input.Position}).Error; err != nil {
+	if err := models.DB.Model(&scope).Updates(models.Scope{Color: input.Color}).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}

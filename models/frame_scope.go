@@ -2,10 +2,12 @@ package models
 
 import "time"
 
-type Scope struct {
+type FrameScope struct {
 	ID          uint      `json:"id" gorm:"primaryKey"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
-	Color       string `json:"color"`
-	HillchartID uint `json:"hillchart_id"`
+	Title string `json:"title"`
+	Position float32 `json:"position" gorm:"default:0"`
+	FrameID uint `json:"frame_id"`
+	ScopeID uint `json:"scope_id"`
 }
