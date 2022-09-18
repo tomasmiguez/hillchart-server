@@ -14,6 +14,7 @@ func main() {
 		// AllowOrigins:     []string{"*"},
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"GET", "POST", "PATCH", "DELETE"},
+		AllowHeaders:    []string{"Origin", "Content-Type"},
 	}))
 
 	router.POST("/hillcharts", handlers.CreateHillchart)
