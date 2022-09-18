@@ -9,10 +9,10 @@ import (
 )
 
 type CreateFrameScopeInput struct {
-	Title string `json:"title" binding:"required"`
+	Title    string  `json:"title" binding:"required"`
 	Position float32 `json:"position"`
-	FrameID uint `json:"frame_id" binding:"required"`
-	ScopeID uint `json:"scope_id" binding:"required"`
+	FrameID  uint    `json:"frame_id" binding:"required"`
+	ScopeID  uint    `json:"scope_id" binding:"required"`
 }
 
 func CreateFrameScope(c *gin.Context) {
@@ -54,7 +54,7 @@ func GetFrameScope(c *gin.Context) {
 }
 
 type UpdateFrameScopeInput struct {
-	Title string `json:"title"`
+	Title    string  `json:"title"`
 	Position float32 `json:"position"`
 }
 

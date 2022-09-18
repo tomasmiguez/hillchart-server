@@ -9,8 +9,8 @@ import (
 )
 
 type CreateScopeInput struct {
-	Color string `json:"color"`
-	HillchartID uint `json:"hillchart_id" binding:"required"`
+	Color       string `json:"color"`
+	HillchartID uint   `json:"hillchart_id" binding:"required"`
 }
 
 func CreateScope(c *gin.Context) {
