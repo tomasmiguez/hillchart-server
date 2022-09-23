@@ -1,20 +1,17 @@
 package models
 
 import (
-	"fmt"
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-
-	"github.com/tomasmiguez/hillchart-server/configs"
 )
 
 var DB *gorm.DB
 
 func getDsn() string {
-	dbConfig := configs.Db()
-	return fmt.Sprintf("host=%s user=%s dbname=%s port=%s", dbConfig.Host, dbConfig.User, dbConfig.DbName, dbConfig.Port)
+	return os.Getenv("DB_URL")
 }
 
 func init() {
