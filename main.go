@@ -41,5 +41,5 @@ func main() {
 	router.PATCH("/frame-scopes/:id", handlers.UpdateFrameScope)
 	router.DELETE("/frame-scopes/:id", handlers.DeleteFrameScope)
 
-	router.Run("localhost:3000")
+	router.Run(":8080")
 }
