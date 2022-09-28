@@ -5,6 +5,7 @@ import "time"
 type Hillchart struct {
 	ID        uint      `json:"id" gorm:"primaryKey"`
 	Name      string    `json:"name"`
+	UUID      string    `json:"uuid"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 	Scopes    []Scope   `json:"scopes"`
