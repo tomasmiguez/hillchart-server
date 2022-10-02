@@ -9,7 +9,7 @@ import (
 )
 
 type CreateFrameInput struct {
-	HillchartID uint `json:"hillchart_id" binding:"required"`
+	HillchartID string `json:"hillchart_id" binding:"required"`
 }
 
 func CreateFrame(c *gin.Context) {
@@ -20,7 +20,7 @@ func CreateFrame(c *gin.Context) {
 	}
 
 	frame := models.Frame{HillchartID: input.HillchartID, FrameScopes: []models.FrameScope{}}
-	if err := models.DB.Create(&frame).Error; err != nil {
+	if err := models.DB.Select("HillchartID").Create(&frame).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}

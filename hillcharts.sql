@@ -25,13 +25,13 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.frame_scopes (
-    id integer NOT NULL,
+    id uuid NOT NULL,
     title character varying(50) NOT NULL,
     "position" numeric(5,2) NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone,
-    frame_id integer NOT NULL,
-    scope_id integer NOT NULL
+    frame_id uuid NOT NULL,
+    scope_id uuid NOT NULL
 );
 
 
@@ -42,8 +42,8 @@ ALTER TABLE public.frame_scopes OWNER TO postgres;
 --
 
 CREATE TABLE public.frames (
-    id integer NOT NULL,
-    hillchart_id integer NOT NULL,
+    id uuid NOT NULL,
+    hillchart_id uuid NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone
 );
@@ -56,7 +56,7 @@ ALTER TABLE public.frames OWNER TO postgres;
 --
 
 CREATE TABLE public.hillcharts (
-    id integer NOT NULL,
+    id uuid NOT NULL,
     name character varying(50) NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone
@@ -92,11 +92,11 @@ ALTER SEQUENCE public.hillcharts_id_seq OWNED BY public.hillcharts.id;
 --
 
 CREATE TABLE public.scopes (
-    id integer NOT NULL,
+    id uuid NOT NULL,
     color character varying(7),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone,
-    hillchart_id integer NOT NULL
+    hillchart_id uuid NOT NULL
 );
 
 
@@ -172,28 +172,28 @@ ALTER SEQUENCE public.statuses_id_seq OWNED BY public.frames.id;
 -- Name: frame_scopes id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.frame_scopes ALTER COLUMN id SET DEFAULT nextval('public.scopes_id_seq'::regclass);
+ALTER TABLE ONLY public.frame_scopes ALTER COLUMN id SET DEFAULT gen_random_uuid();
 
 
 --
 -- Name: frames id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.frames ALTER COLUMN id SET DEFAULT nextval('public.statuses_id_seq'::regclass);
+ALTER TABLE ONLY public.frames ALTER COLUMN id SET DEFAULT gen_random_uuid();
 
 
 --
 -- Name: hillcharts id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.hillcharts ALTER COLUMN id SET DEFAULT nextval('public.hillcharts_id_seq'::regclass);
+ALTER TABLE ONLY public.hillcharts ALTER COLUMN id SET DEFAULT gen_random_uuid();
 
 
 --
 -- Name: scopes id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.scopes ALTER COLUMN id SET DEFAULT nextval('public.scopes_id_seq1'::regclass);
+ALTER TABLE ONLY public.scopes ALTER COLUMN id SET DEFAULT gen_random_uuid();
 
 
 --

@@ -10,7 +10,7 @@ import (
 
 type CreateScopeInput struct {
 	Color       string `json:"color"`
-	HillchartID uint   `json:"hillchart_id" binding:"required"`
+	HillchartID string   `json:"hillchart_id" binding:"required"`
 }
 
 func CreateScope(c *gin.Context) {
@@ -21,7 +21,7 @@ func CreateScope(c *gin.Context) {
 	}
 
 	scope := models.Scope{Color: input.Color, HillchartID: input.HillchartID}
-	if err := models.DB.Create(&scope).Error; err != nil {
+	if err := models.DB.Select("Color", "HillchartID").Create(&scope).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}
@@ -43,7 +43,7 @@ func GetScope(c *gin.Context) {
 	id := c.Param("id")
 
 	scope := models.Scope{}
-	if err := models.DB.Take(&scope, id).Error; err != nil {
+	if err := models.DB.Take(&scope, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}
@@ -59,7 +59,7 @@ func UpdateScope(c *gin.Context) {
 	id := c.Param("id")
 
 	var scope models.Scope
-	if err := models.DB.Take(&scope, id).Error; err != nil {
+	if err := models.DB.Take(&scope, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}
@@ -82,12 +82,12 @@ func DeleteScope(c *gin.Context) {
 	id := c.Param("id")
 
 	var scope models.Scope
-	if err := models.DB.Take(&scope, id).Error; err != nil {
+	if err := models.DB.Take(&scope, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}
 
-	if err := models.DB.Delete(&models.Scope{}, id).Error; err != nil {
+	if err := models.DB.Delete(&models.Scope{}, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}

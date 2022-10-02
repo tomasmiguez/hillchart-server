@@ -12,7 +12,7 @@ func DeleteFrame(c *gin.Context) {
 	id := c.Param("id")
 
 	var frame models.Frame
-	if err := models.DB.Take(&frame, id).Error; err != nil {
+	if err := models.DB.Take(&frame, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}

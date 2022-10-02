@@ -3,9 +3,9 @@ package models
 import "time"
 
 type Scope struct {
-	ID          uint      `json:"id" gorm:"primaryKey"`
+	ID        string      `json:"id" gorm:"primaryKey;default:gen_random_uuid();"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 	Color       string    `json:"color"`
-	HillchartID uint      `json:"hillchart_id"`
+	HillchartID string      `json:"hillchart_id"`
 }

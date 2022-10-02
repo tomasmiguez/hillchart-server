@@ -11,8 +11,8 @@ import (
 type CreateFrameScopeInput struct {
 	Title    string  `json:"title" binding:"required"`
 	Position float32 `json:"position"`
-	FrameID  uint    `json:"frame_id" binding:"required"`
-	ScopeID  uint    `json:"scope_id" binding:"required"`
+	FrameID  string    `json:"frame_id" binding:"required"`
+	ScopeID  string    `json:"scope_id" binding:"required"`
 }
 
 func CreateFrameScope(c *gin.Context) {
@@ -23,7 +23,7 @@ func CreateFrameScope(c *gin.Context) {
 	}
 
 	frameScope := models.FrameScope{Title: input.Title, Position: input.Position, FrameID: input.FrameID, ScopeID: input.ScopeID}
-	if err := models.DB.Create(&frameScope).Error; err != nil {
+	if err := models.DB.Select("Title", "Position", "FrameID", "ScopeID").Create(&frameScope).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}
@@ -45,7 +45,7 @@ func GetFrameScope(c *gin.Context) {
 	id := c.Param("id")
 
 	frameScope := models.FrameScope{}
-	if err := models.DB.Take(&frameScope, id).Error; err != nil {
+	if err := models.DB.Take(&frameScope, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}
@@ -62,7 +62,7 @@ func UpdateFrameScope(c *gin.Context) {
 	id := c.Param("id")
 
 	var frameScope models.FrameScope
-	if err := models.DB.Take(&frameScope, id).Error; err != nil {
+	if err := models.DB.Take(&frameScope, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}
@@ -85,12 +85,12 @@ func DeleteFrameScope(c *gin.Context) {
 	id := c.Param("id")
 
 	var frameScope models.FrameScope
-	if err := models.DB.Take(&frameScope, id).Error; err != nil {
+	if err := models.DB.Take(&frameScope, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"errors": []string{"Record not found."}})
 		return
 	}
 
-	if err := models.DB.Delete(&models.FrameScope{}, id).Error; err != nil {
+	if err := models.DB.Delete(&models.FrameScope{}, "id = ?", id).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"errors": []string{err.Error()}})
 		return
 	}
